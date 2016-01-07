@@ -388,30 +388,11 @@ public class AFPAlignmentDisplay
 		}
 		Atom[] twistedAtoms = twistedAs.toArray(new Atom[twistedAs.size()]);
 
-		List<Group> hetatms  = new ArrayList<Group>();
-		List<Group> nucs1    = new ArrayList<Group>();
-		Group g1 = ca1[0].getGroup();
-		Chain c1 = null;
-		if ( g1 != null) {
-			c1 = g1.getChain();
-			if ( c1 != null){
-				hetatms = c1.getAtomGroups(GroupType.HETATM);;
-				nucs1  = c1.getAtomGroups(GroupType.NUCLEOTIDE);
-			}
-		}
-		List<Group> hetatms2 = new ArrayList<Group>();
-		List<Group> nucs2    = new ArrayList<Group>();
-		Group g2 = ca2[0].getGroup();
-		Chain c2 = null;
-		if ( g2 != null){
-			c2 = g2.getChain();
-			if ( c2 != null){
-				hetatms2 = c2.getAtomGroups(GroupType.HETATM);
-				nucs2 = c2.getAtomGroups(GroupType.NUCLEOTIDE);
-			}
-		}
-		Atom[] arr1 = GuiWrapper.getAtomArray(ca1, hetatms, nucs1);
-		Atom[] arr2 = GuiWrapper.getAtomArray(twistedAtoms, hetatms2, nucs2);
+		List<Group> hetatms  = StructureTools.getUnalignedGroups(ca1);
+		List<Group> hetatms2 = StructureTools.getUnalignedGroups(ca2);
+
+		Atom[] arr1 = GuiWrapper.getAtomArray(ca1, hetatms);
+		Atom[] arr2 = GuiWrapper.getAtomArray(twistedAtoms, hetatms2);
 
 		return GuiWrapper.getAlignedStructure(arr1,arr2);
 	}

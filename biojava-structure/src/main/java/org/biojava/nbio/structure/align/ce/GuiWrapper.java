@@ -179,16 +179,16 @@ public class GuiWrapper {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
-	public static Atom[] getAtomArray(Atom[] ca, List<Group> hetatoms, List<Group> nucs)
+	public static Atom[] getAtomArray(Atom[] ca, List<Group> hetatoms)
 			throws ClassNotFoundException, NoSuchMethodException,
 			InvocationTargetException, IllegalAccessException{
 
 		Class structureAlignmentJmol = Class.forName(strucAligJmol);
 
-		Class c = Class.forName(displayAFP);		
-		Method show = c.getMethod("getAtomArray", new Class[] { Atom[].class, List.class, List.class});
+		Class c = Class.forName(displayAFP);
+		Method show = c.getMethod("getAtomArray", new Class[] { Atom[].class, List.class });
 
-		Atom[] atoms = (Atom[]) show.invoke(null, ca, hetatoms, nucs);
+		Atom[] atoms = (Atom[]) show.invoke(null, ca, hetatoms);
 
 		return atoms;
 
